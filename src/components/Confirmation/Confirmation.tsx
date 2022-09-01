@@ -1,19 +1,23 @@
 import {useDispatch, useSelector} from "react-redux";
-import {TState} from "../../store/types";
+import {TGeneralState, TState} from "../../store/types";
 import React, {useState} from "react";
-import {changeUserNameAction} from "../../store/action-creators";
+import {changeUserNameAction, getNewsAction} from "../../store/action-creators";
 import {useActions} from "../../hooks/useActions";
+import News from "../News/News";
 
 export default function Confirmation(): JSX.Element {
 
     const [isChangeInput, setIsChangeInput] = useState(false);
 
-    const nameFromStore = useSelector((state: TState) => state.name);
-    const surnameFromStore = useSelector((state: TState) => state.surname);
+    const nameFromStore = useSelector((state: TGeneralState) => state.reducer.name);
+    const surnameFromStore = useSelector((state: TGeneralState) => state.reducer.surname);
+
+    const latestNews = useSelector((state: TGeneralState) => state.newsReducer.latestNews);
+    const popularNews = useSelector((state: TGeneralState) => state.newsReducer.popularNews);
 
     const [name, setName] = useState(nameFromStore);
 
-    const {changeUserNameAction} = useActions();
+    const {changeUserNameAction, getNewsAction} = useActions();
 
     const handleClick = () => {
         setIsChangeInput(true);
@@ -26,6 +30,10 @@ export default function Confirmation(): JSX.Element {
     const handleSubmit = () => {
         changeUserNameAction(name);
         setIsChangeInput(false);
+    }
+
+    const handleGetNews = () => {
+        getNewsAction();
     }
 
     return (
@@ -48,6 +56,14 @@ export default function Confirmation(): JSX.Element {
                 }
             </div>
             <p style={{margin: 0}}>{`Фамилия: ${surnameFromStore}`}</p>
+
+            <div style={{marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <button onClick={handleGetNews}>Получить список новостей</button>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'start', width: '1000px', gap: '10px'}}>
+                    <News title='LatestNews' news={latestNews}/>
+                    <News title='PopularNews' news={popularNews}/>
+                </div>
+            </div>
         </div>
     )
 }

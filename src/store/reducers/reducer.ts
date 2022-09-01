@@ -1,5 +1,5 @@
-import {WindowType} from "../consts";
-import {actionTypes, TState, userDataAction} from "./types";
+import {WindowType} from "../../consts";
+import {actionTypes, TState, userDataAction} from "../types";
 
 const DEFAULT_STATE: TState = {
     name: '',

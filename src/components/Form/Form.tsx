@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {addUserDataAction} from "../../store/action-creators";
-import {TState} from "../../store/types";
+import {TGeneralState, TState} from "../../store/types";
 import {useActions} from "../../hooks/useActions";
 
 export function Form():JSX.Element {
 
-    const nameFromStore = useSelector((state: TState) => state.name);
-    const surnameFromStore = useSelector((state: TState) => state.surname);
+    const nameFromStore = useSelector((state: TGeneralState) => state.reducer.name);
+    const surnameFromStore = useSelector((state: TGeneralState) => state.reducer.surname);
 
     const [name, setName] = useState(nameFromStore);
     const [surname, setSurname] = useState(surnameFromStore);

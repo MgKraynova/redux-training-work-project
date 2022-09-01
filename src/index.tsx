@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import {store} from './store';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
-import {WindowType} from "./consts";
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
