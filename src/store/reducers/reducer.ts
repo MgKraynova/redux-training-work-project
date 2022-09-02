@@ -22,6 +22,8 @@ export function reducer(state = DEFAULT_STATE, action: userDataAction): TState {
             return {...state, ...action.payload};
         case actionTypes.CHANGE_USER_NAME:
             return {...state, ...action.payload};
+        case actionTypes.CLEAN:
+            return {...state, ...action.payload};
         default:
             return state;
     }

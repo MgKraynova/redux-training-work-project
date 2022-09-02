@@ -1,4 +1,4 @@
-import {WindowType} from "../consts";
+import {GET_NEWS_LOADING, WindowType} from "../consts";
 
 export interface TGeneralState {
     reducer: TState,
@@ -16,6 +16,7 @@ export enum actionTypes {
     CHANGE_USER_DATA = 'CHANGE_USER_DATA',
     RETURN = 'RETURN',
     CHANGE_USER_NAME = 'CHANGE_USER_NAME',
+    CLEAN = 'CLEAN'
 }
 
 export interface addUserDataAction {
@@ -51,11 +52,21 @@ export interface changeUserNameAction {
     }
 }
 
-export type userDataAction = addUserDataAction | changeUserDataAction | returnAction | changeUserNameAction;
+export interface cleanAction {
+    type: actionTypes.CLEAN,
+    payload: {
+        name: string,
+        surname: string
+    }
+}
+
+export type userDataAction = cleanAction | addUserDataAction | changeUserDataAction | returnAction | changeUserNameAction;
 
 export interface TStateNews {
     latestNews: TNews[],
-    popularNews: TNews[]
+    popularNews: TNews[],
+    isLoading: boolean,
+    error: Error | null
 }
 
 export interface TNews {
@@ -80,7 +91,9 @@ export enum actionNewsTypes {
     GET_LATEST_NEWS = "GET_LATEST_NEWS",
     SET_LATEST_NEWS = "SET_LATEST_NEWS",
     SET_POPULAR_NEWS = 'SET_POPULAR_NEWS',
-    GET_NEWS = 'GET_NEWS'
+    GET_NEWS = 'GET_NEWS',
+    GET_NEWS_LOADING = 'GET_NEWS_LOADING',
+    GET_NEWS_ERROR = 'GET_NEWS_ERROR'
 }
 
 // export interface getLatestNewsAction {
@@ -103,4 +116,14 @@ export interface getNewsAction {
     payload: {}
 }
 
-export type newsAction = setLatestNewsAction | setPopularNewsAction | getNewsAction;
+export interface isLoadingAction {
+    type: actionNewsTypes.GET_NEWS_LOADING,
+    payload: boolean
+}
+
+export interface errorAction {
+    type: actionNewsTypes.GET_NEWS_ERROR,
+    payload: Error
+}
+
+export type newsAction = setLatestNewsAction | setPopularNewsAction | getNewsAction | isLoadingAction | errorAction;

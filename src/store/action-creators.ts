@@ -4,7 +4,7 @@ import {
     CHANGE_USER_DATA,
     RETURN,
     CHANGE_USER_NAME,
-    SET_LATEST_NEWS, SET_POPULAR_NEWS, GET_NEWS
+    SET_LATEST_NEWS, SET_POPULAR_NEWS, GET_NEWS, CLEAN, GET_NEWS_LOADING, GET_NEWS_ERROR
 } from "../consts";
 import {TNews} from "./types";
 
@@ -58,3 +58,29 @@ export const setPopularNewsAction = (payload: TNews[]) => ({
 export const getNewsAction = () => ({
     type: GET_NEWS,
 });
+
+type cleanPayload = {
+    name: string,
+    surname: string
+}
+export const cleanAction = (payload: cleanPayload) => ({
+    type: CLEAN,
+    payload
+});
+
+export const isLoadingAction = (payload: boolean) => ({
+    type: GET_NEWS_LOADING,
+    payload
+});
+
+export const errorAction = (payload: Error) => {
+    console.log('payload', payload);
+    return ({
+        type: GET_NEWS_ERROR,
+        payload
+    })
+};
+
+// export const finishLoadingAction = () => ({
+//     type: GET_NEWS_SUCCESS,
+// });

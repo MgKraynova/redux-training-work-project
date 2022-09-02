@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {TGeneralState, TState} from "../../store/types";
 import React, {useState} from "react";
-import {changeUserNameAction, getNewsAction} from "../../store/action-creators";
+import {changeUserNameAction, cleanAction, getNewsAction, returnAction} from "../../store/action-creators";
 import {useActions} from "../../hooks/useActions";
 import News from "../News/News";
 
@@ -15,9 +15,13 @@ export default function Confirmation(): JSX.Element {
     const latestNews = useSelector((state: TGeneralState) => state.newsReducer.latestNews);
     const popularNews = useSelector((state: TGeneralState) => state.newsReducer.popularNews);
 
+    const isLoading = useSelector((state: TGeneralState) => state.newsReducer.isLoading);
+    const error = useSelector((state: TGeneralState) => state.newsReducer.error);
+
+
     const [name, setName] = useState(nameFromStore);
 
-    const {changeUserNameAction, getNewsAction} = useActions();
+    const {changeUserNameAction, getNewsAction, returnAction, cleanAction} = useActions();
 
     const handleClick = () => {
         setIsChangeInput(true);
@@ -34,6 +38,31 @@ export default function Confirmation(): JSX.Element {
 
     const handleGetNews = () => {
         getNewsAction();
+    }
+
+    const handleBackClick = () => {
+        returnAction();
+    }
+
+    const renderNews = () => {
+        if (isLoading) {
+            return 'Загрузка';
+        }
+
+        if (error) {
+            return 'Ошибка';
+        }
+
+        return (<div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'start',
+            width: '1000px',
+            gap: '10px'
+        }}>
+            <News title='LatestNews' news={latestNews}/>
+            <News title='PopularNews' news={popularNews}/>
+        </div>);
     }
 
     return (
@@ -56,13 +85,11 @@ export default function Confirmation(): JSX.Element {
                 }
             </div>
             <p style={{margin: 0}}>{`Фамилия: ${surnameFromStore}`}</p>
+            <button onClick={handleBackClick}>Назад</button>
 
             <div style={{marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <button onClick={handleGetNews}>Получить список новостей</button>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'start', width: '1000px', gap: '10px'}}>
-                    <News title='LatestNews' news={latestNews}/>
-                    <News title='PopularNews' news={popularNews}/>
-                </div>
+                { renderNews()}
             </div>
         </div>
     )
