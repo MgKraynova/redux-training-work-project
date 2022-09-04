@@ -1,9 +1,9 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import {reducer} from "./reducer";
+import {userReducer} from "./userReducer";
 import {newsReducer} from "./newsReducer";
 
 const rootReducer = combineReducers({
-    reducer,
+    userReducer,
     newsReducer
 });
 

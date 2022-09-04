@@ -1,16 +1,17 @@
-import {useDispatch, useSelector} from "react-redux";
-import {TGeneralState, TState} from "../../store/types";
+import {useSelector} from "react-redux";
+import {TGeneralState} from "../../store/types/state.types";
 import React, {useState} from "react";
-import {changeUserNameAction, cleanAction, getNewsAction, returnAction} from "../../store/action-creators";
 import {useActions} from "../../hooks/useActions";
 import News from "../News/News";
+import * as newsActionCreators from '../../store/action-creators/news-action-creators';
+import * as userActionCreators from '../../store/action-creators/user-action-creators';
 
 export default function Confirmation(): JSX.Element {
 
     const [isChangeInput, setIsChangeInput] = useState(false);
 
-    const nameFromStore = useSelector((state: TGeneralState) => state.reducer.name);
-    const surnameFromStore = useSelector((state: TGeneralState) => state.reducer.surname);
+    const nameFromStore = useSelector((state: TGeneralState) => state.userReducer.name);
+    const surnameFromStore = useSelector((state: TGeneralState) => state.userReducer.surname);
 
     const latestNews = useSelector((state: TGeneralState) => state.newsReducer.latestNews);
     const popularNews = useSelector((state: TGeneralState) => state.newsReducer.popularNews);
@@ -21,7 +22,8 @@ export default function Confirmation(): JSX.Element {
 
     const [name, setName] = useState(nameFromStore);
 
-    const {changeUserNameAction, getNewsAction, returnAction, cleanAction} = useActions();
+    const {getNewsAction} = useActions(newsActionCreators);
+    const {changeUserNameAction, returnAction} = useActions(userActionCreators);
 
     const handleClick = () => {
         setIsChangeInput(true);

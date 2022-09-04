@@ -1,18 +1,18 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {addUserDataAction} from "../../store/action-creators";
-import {TGeneralState, TState} from "../../store/types";
+import {useSelector} from "react-redux";
+import {TGeneralState} from "../../store/types/state.types";
 import {useActions} from "../../hooks/useActions";
+import * as userActionCreators from '../../store/action-creators/user-action-creators';
 
 export function Form():JSX.Element {
 
-    const nameFromStore = useSelector((state: TGeneralState) => state.reducer.name);
-    const surnameFromStore = useSelector((state: TGeneralState) => state.reducer.surname);
+    const nameFromStore = useSelector((state: TGeneralState) => state.userReducer.name);
+    const surnameFromStore = useSelector((state: TGeneralState) => state.userReducer.surname);
 
     const [name, setName] = useState(nameFromStore);
     const [surname, setSurname] = useState(surnameFromStore);
 
-    const {addUserDataAction} = useActions();
+    const {addUserDataAction} = useActions(userActionCreators);
 
     const handleChangeNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);

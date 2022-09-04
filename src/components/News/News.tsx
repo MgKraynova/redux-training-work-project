@@ -1,4 +1,4 @@
-import {TNews} from "../../store/types";
+import {TNews} from "../../store/types/news-action.types";
 
 type TProps = {
     news: TNews[],

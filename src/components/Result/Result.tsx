@@ -1,17 +1,18 @@
 import React, {useState} from "react";
 import { useSelector} from "react-redux";
-import {TGeneralState, TState} from "../../store/types";
+import {TGeneralState} from "../../store/types/state.types";
 import {useActions} from "../../hooks/useActions";
+import * as userActionCreators from '../../store/action-creators/user-action-creators';
 
 export function Result(): JSX.Element {
 
-    const nameFromStore = useSelector((state: TGeneralState) => state.reducer.name);
-    const surnameFromStore = useSelector((state: TGeneralState) => state.reducer.surname);
+    const nameFromStore = useSelector((state: TGeneralState) => state.userReducer.name);
+    const surnameFromStore = useSelector((state: TGeneralState) => state.userReducer.surname);
 
     const [name, setName] = useState(nameFromStore);
     const [surname, setSurname] = useState(surnameFromStore);
 
-    const {changeUserDataAction, returnAction} = useActions();
+    const {changeUserDataAction, returnAction} = useActions(userActionCreators);
 
     const handleChangeNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);

@@ -1,4 +1,5 @@
-import {TStateNews, newsAction, actionNewsTypes} from "../types";
+import {newsAction, actionNewsTypes} from "../types/news-action.types";
+import {TStateNews} from "../types/state.types";
 
 const DEFAULT_STATE: TStateNews = {
     latestNews: [],
@@ -16,7 +17,6 @@ export function newsReducer(state = DEFAULT_STATE, action: newsAction): TStateNe
         case actionNewsTypes.GET_NEWS_LOADING:
             return {...state, isLoading: action.payload};
         case actionNewsTypes.GET_NEWS_ERROR: {
-            console.log('action.payload', action.payload);
             return {...state, error: action.payload}
         }
         default:

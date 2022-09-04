@@ -1,7 +1,7 @@
-import {getLatestNews, getPopularNews } from "../../api/index";
+import {getLatestNews, getPopularNews } from "../../api";
 import {GET_NEWS, RETURN} from "../../consts";
 import {takeEvery, put, call, fork} from 'redux-saga/effects';
-import {setLatestNewsAction, setPopularNewsAction, cleanAction, isLoadingAction, errorAction} from "../action-creators";
+import {setLatestNewsAction, setPopularNewsAction, cleanAction, isLoadingAction, errorAction} from "../action-creators/news-action-creators";
 
 
 export function* handleLatestNews() {
@@ -9,10 +9,8 @@ export function* handleLatestNews() {
 
     try {
         const {hits}= yield call(getLatestNews, 'react');
-        console.log(hits);
-
         yield put(setLatestNewsAction(hits));
-    } catch (error) {
+    } catch (error: any) {
         yield put(errorAction(error));
     } finally {
         yield put(isLoadingAction(false));
@@ -24,11 +22,8 @@ export function* handlePopularNews() {
     yield put(isLoadingAction(true));
     try {
         const {hits}= yield call(getPopularNews);
-        console.log(hits);
-
         yield put(setPopularNewsAction(hits));
-    } catch (error) {
-        console.log('error', error);
+    } catch (error: any) {
         yield put(errorAction(error));
     } finally {
         yield put(isLoadingAction(false));

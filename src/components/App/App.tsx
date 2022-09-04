@@ -2,13 +2,13 @@ import React from 'react';
 import {Form} from "../Form/Form";
 import {WindowType} from "../../consts";
 import {useSelector} from "react-redux";
-import {TGeneralState} from "../../store/types";
+import {TGeneralState} from "../../store/types/state.types";
 import Confirmation from "../Confirmation/Confirmation";
 import {Result} from "../Result/Result";
 
 export default function App(): JSX.Element {
 
-    const windowType = useSelector((state: TGeneralState) => state.reducer.windowType);
+    const windowType = useSelector((state: TGeneralState) => state.userReducer.windowType);
 
     const renderContent = () => {
         switch (windowType) {
