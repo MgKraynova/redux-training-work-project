@@ -22,10 +22,6 @@ export class ErrorBoundary extends Component<Props, State> {
         console.error("Uncaught error:", error, errorInfo);
     }
 
-    handleClick() {
-        return {hasError: false};
-    }
-
     public render() {
         if (this.state.hasError) {
             return (
@@ -35,9 +31,6 @@ export class ErrorBoundary extends Component<Props, State> {
                 }}>
                     <h1 style={{color: "white"}}>Извините, произошла ошибка</h1>
                     <img style={{width: '300px'}} src={errorImage} alt='Ошибка'/>
-                    <button style={{width: '160px', margin: 'auto'}} onClick={this.handleClick}>
-                        Вернуться на главную страницу
-                    </button>
                 </div>
             );
         }
