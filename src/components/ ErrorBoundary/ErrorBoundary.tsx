@@ -15,14 +15,21 @@ export class ErrorBoundary extends Component<Props, State> {
     };
 
     public static getDerivedStateFromError(_: Error): State {
+        // Этот метод жизненного цикла вызывается после возникновения ошибки у компонента-потомка.
+        // вызывается во время этапа «рендера»
+        console.log('запускаем getDerivedStateFromError');
         return {hasError: true};
     }
 
     public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+        // запускается после возникновения ошибки
+        console.log('запускаем componentDidCatch');
         console.error("Uncaught error:", error, errorInfo);
     }
 
     public render() {
+        // запускается при инициализации приложения. Он проверяет this.props и this.state
+        console.log('запускаем render()');
         if (this.state.hasError) {
             return (
                 <div style={{

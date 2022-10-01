@@ -4,7 +4,7 @@ import {TGeneralState} from "../../store/types/state.types";
 import {useActions} from "../../hooks/useActions";
 import * as userActionCreators from '../../store/action-creators/user-action-creators';
 
-export function Form():JSX.Element {
+export function Form(props?: any):JSX.Element {
 
     const nameFromStore = useSelector((state: TGeneralState) => state.userReducer.name);
     const surnameFromStore = useSelector((state: TGeneralState) => state.userReducer.surname);
@@ -33,7 +33,7 @@ export function Form():JSX.Element {
                 <input value={name} type='text' onChange={handleChangeNameInput} placeholder='Имя'/>
                 <input value={surname} type='text' onChange={handleChangeSurnameInput} placeholder='Фамилия'/>
                 <button type='submit'>
-                    Сохранить
+                    {props.hello.forEach((item: any) => console.log(item))}
                 </button>
             </form>
         </div>
